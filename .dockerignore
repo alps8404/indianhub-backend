@@ -1,0 +1,7 @@
+target/*.original
+target/test-classes/
+**/application*.yml
+**/application*.properties
+**/.git
+**/node_modules
+**/Dockerfile
