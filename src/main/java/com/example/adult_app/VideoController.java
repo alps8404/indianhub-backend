@@ -9,7 +9,7 @@ import java.util.List;
 @RequestMapping("/api")
 @CrossOrigin(origins = "*")
 public class VideoController {
-
+	
     @Autowired
     private VideoService videoService;
 
