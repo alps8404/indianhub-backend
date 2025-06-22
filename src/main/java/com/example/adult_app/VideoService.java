@@ -1,59 +1,64 @@
 package com.example.adult_app;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 
 @Service
 public class VideoService {
-    @Value("${PEXELS_API_KEY}")
+
+    @Value("${pexels.api.key}")
     private String apiKey;
 
-    private final RestTemplate restTemplate = new RestTemplate();
-    private static final String PEXELS_API_URL =
-        "https://api.pexels.com/videos/search?query=adult&per_page=40";
+    private final String API_URL = "https://api.pexels.com/videos/search?query=adult&per_page=10";
 
     public List<Video> getAllVideos() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(apiKey);
-        HttpEntity<Void> request = new HttpEntity<>(headers);
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization", apiKey);
+            HttpEntity<String> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<PexelsResponse> response = restTemplate.exchange(
-            PEXELS_API_URL, HttpMethod.GET, request, PexelsResponse.class);
+            ResponseEntity<String> response = restTemplate.exchange(API_URL, HttpMethod.GET, entity, String.class);
 
-        return response.getBody().videos().stream()
-            .map(v -> new Video(
-                v.user().name(),                 // channel = user name
-                v.url(),                          // title
-                formatDuration(v.duration()),     // duration
-                String.valueOf(v.video_files().get(0).width) + " x " + 
-                   String.valueOf(v.video_files().get(0).height),
-                v.image()))
-            .toList();
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = mapper.readTree(response.getBody());
+            JsonNode videosNode = root.path("videos");
+
+            List<Video> videoList = new ArrayList<>();
+
+            for (JsonNode videoNode : videosNode) {
+                String title = videoNode.path("url").asText(); // Optional: you could parse more meaningful title if available
+                String channel = videoNode.path("user").path("name").asText();
+                String duration = videoNode.path("duration").asText() + " seconds";
+                String image = videoNode.path("image").asText();
+
+                // Pick the first HD video file
+                String videoLink = "";
+                for (JsonNode file : videoNode.path("video_files")) {
+                    if ("hd".equals(file.path("quality").asText())) {
+                        videoLink = file.path("link").asText();
+                        break;
+                    }
+                }
+
+                Video video = new Video(title, channel, duration, "N/A", image);
+                videoList.add(video);
+            }
+            System.out.println("Printing videos :");
+            for(Video vi : videoList) {
+            	System.out.println(" :"+vi.getChannel());
+            }
+            return videoList;
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to fetch videos from Pexels", e);
+        }
     }
-
-    private String formatDuration(int totalSec) {
-        int min = totalSec / 60, sec = totalSec % 60;
-        return String.format("%02d:%02d", min, sec);
-    }
-
-    // DTOs for Pexels response
-    record PexelsResponse(List<PexelsVideo> videos) {}
-    record PexelsVideo(int duration, String url, String image, PexelsUser user, List<VideoFile> video_files){}
-    record PexelsUser(String name) {}
-    record VideoFile(int width, int height, String link) {}
 }
-

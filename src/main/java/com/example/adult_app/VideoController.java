@@ -14,7 +14,7 @@ public class VideoController {
     private VideoService videoService;
 
     @GetMapping("/videos")
-    public List<Video> getVideos() {
+    public List<Video>  getVideos() {
         return videoService.getAllVideos();
     }
 }
