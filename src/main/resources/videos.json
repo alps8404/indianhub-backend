@@ -4,48 +4,48 @@
     "channel": "channel_1",
     "duration": "00:00",
     "views": "1000K",
-    "image": "https://indianhub-backend.onrender.com/images/alpesh.jpg"
+    "image": "https://indianhub-backend-k46a.onrender.com/images/alpesh.jpg"
   },
   {
     "title": "Sample Video 2",
     "channel": "channel_2",
     "duration": "01:02",
     "views": "1003K",
-   "image": "https://indianhub-backend.onrender.com/images/alpesh.jpg"
+   "image": "https://indianhub-backend-k46a.onrender.com/images/alpesh.jpg"
   },
   {
     "title": "Sample Video 3",
     "channel": "channel_3",
     "duration": "02:04",
     "views": "1006K",
-   "image": "https://indianhub-backend.onrender.com/images/alpesh.jpg"
+   "image": "https://indianhub-backend-k46a.onrender.com/images/alpesh.jpg"
   },
   {
     "title": "Sample Video 4",
     "channel": "channel_4",
     "duration": "03:06",
     "views": "1009K",
-    "image": "https://indianhub-backend.onrender.com/images/alpesh.jpg"
+    "image": "https://indianhub-backend-k46a.onrender.com/images/alpesh.jpg"
   },
   {
     "title": "Sample Video 5",
     "channel": "channel_5",
     "duration": "04:08",
     "views": "1012K",
-    "image": "https://indianhub-backend.onrender.com/images/alpesh.jpg"
+    "image": "https://indianhub-backend-k46a.onrender.com/images/alpesh.jpg"
   },
   {
     "title": "Sample Video 6",
     "channel": "channel_6",
     "duration": "05:10",
     "views": "1015K",
-    "image": "https://indianhub-backend.onrender.com/images/alpesh.jpg"
+    "image": "https://indianhub-backend-k46a.onrender.com/images/alpesh.jpg"
   },
   {
     "title": "Sample Video 7",
     "channel": "channel_7",
     "duration": "06:12",
     "views": "1018K",
-    "image": "https://via.placeholder.com/300x200?text=Video+7"
+    "image": "https://indianhub-backend-k46a.onrender.com/images/alpesh.jpg"
   }
 ]
