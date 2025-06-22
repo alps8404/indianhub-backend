@@ -6,9 +6,14 @@ import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 @Service
 public class VideoService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(VideoService.class);
 
     public List<Video> getAllVideos() {
         try {
@@ -16,7 +21,9 @@ public class VideoService {
             InputStream is = new ClassPathResource("videos.json").getInputStream();
             byte[] bytes = is.readAllBytes();
             String json = new String(bytes);
-            System.out.println("Printing videos:\n" + json);
+            //System.out.println("Printing videos:\n" + json);
+            logger.info("Printing image URLS");
+            logger.info(json);
             return mapper.readValue(bytes, new TypeReference<List<Video>>() {});
         } catch (Exception e) {
             throw new RuntimeException("Failed to load videos.json", e);
