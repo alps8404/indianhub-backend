@@ -16,7 +16,7 @@ public class VideoService {
     @Value("${pexels.api.key}")
     private String apiKey;
 
-    private final String API_URL = "https://api.pexels.com/videos/search?query=adult&per_page=10";
+    private final String API_URL = "https://api.pexels.com/videos/search?query=adult&per_page=20";
 
     public List<Video> getAllVideos() {
         try {
