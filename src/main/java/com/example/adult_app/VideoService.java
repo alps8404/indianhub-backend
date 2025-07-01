@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 public class VideoService {
 
  private static final String AUTH_URL = "https://api.redgifs.com/v2/auth/temporary";
- private static final String SEARCH_URL = "https://api.redgifs.com/v2/gifs/search?search=amateur&count=20";
+ private static final String SEARCH_URL = "https://api.redgifs.com/v2/gifs/search?search=blowjob&count=20";
 
  public String getAuthToken() {
      RestTemplate rt = new RestTemplate();
@@ -30,7 +30,7 @@ public class VideoService {
      HttpEntity<Void> req = new HttpEntity<>(headers);
 
      ResponseEntity<JsonNode> resp = new RestTemplate()
-         .exchange(SEARCH_URL, HttpMethod.GET, req, JsonNode.class, "nature");
+         .exchange(SEARCH_URL, HttpMethod.GET, req, JsonNode.class, "desi");
 
      JsonNode gifs = resp.getBody().path("gifs");
      List<Video> vids = new ArrayList<>();
