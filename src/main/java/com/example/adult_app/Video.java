@@ -6,16 +6,18 @@ public class Video {
     private String duration;
     private String views;
     private String image;
+    private String videoLink; // ✅ New field
 
     // Constructors
     public Video() {}
 
-    public Video(String title, String channel, String duration, String views, String image) {
+    public Video(String title, String channel, String duration, String views, String image, String videoLink) {
         this.title = title;
         this.channel = channel;
         this.duration = duration;
         this.views = views;
         this.image = image;
+        this.videoLink = videoLink;
     }
 
     // Getters & Setters
@@ -33,4 +35,7 @@ public class Video {
 
     public String getImage() { return image; }
     public void setImage(String image) { this.image = image; }
+
+    public String getVideoLink() { return videoLink; }
+    public void setVideoLink(String videoLink) { this.videoLink = videoLink; }
 }
